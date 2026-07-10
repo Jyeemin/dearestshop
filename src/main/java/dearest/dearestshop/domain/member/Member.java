@@ -3,9 +3,7 @@ package dearest.dearestshop.domain.member;
 import dearest.dearestshop.domain.Address;
 import dearest.dearestshop.domain.BaseTimeEntity;
 import dearest.dearestshop.domain.order.Order;
-import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -38,43 +36,40 @@ public class Member extends BaseTimeEntity {
     @Embedded
     private Address address;
 
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
     @OneToMany(mappedBy = "member")
    private List<Order> orders = new ArrayList<>();
 
-    //생성자
-    protected Member(
-            String name,
-            String email,
-            String password,
-            LocalDate birthDate,
-            String phoneNumber,
-            Address address
-    ) {
-        this.name = name;
-        this.email = email;
-        this.password = password;
-        this.birthDate = birthDate;
-        this.phoneNumber = phoneNumber;
-        this.address = address;
+    //연관관계 편의 메서드 추가 member-order
+    public void addOrder(Order order){
+        order.addMember(this);
+        orders.add(order);
     }
 
+    //생성 메소드
     public static Member createMember(
             String name,
             String email,
             String password,
             LocalDate birthDate,
-            String phoneNumber,
-            Address address
+            String phoneNumber
     ) {
-        return new Member(
-                name,
-                email,
-                password,
-                birthDate,
-                phoneNumber,
-                address
-        );
+        Member member = new Member();
+
+        member.name = name;
+        member.email = email;
+        member.password = password;
+        member.birthDate = birthDate;
+        member.phoneNumber = phoneNumber;
+
+        member.role = Role.USER;
+
+        return member;
     }
+
+    //편의 메서드
 
     //비밀번호 변경
     public void changePassword(String password) {
@@ -91,7 +86,7 @@ public class Member extends BaseTimeEntity {
         this.phoneNumber = phoneNumber;
     }
 
-    //주소 변경
+    //주소 변경, 주문 시 호출한다
     public void changeAddress(Address address) {
         this.address = address;
     }

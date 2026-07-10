@@ -2,10 +2,13 @@ package dearest.dearestshop.domain.cart;
 
 import dearest.dearestshop.domain.product.Product;
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class CartItem {
 
     @Id @GeneratedValue
@@ -22,17 +25,19 @@ public class CartItem {
 
     private int quantity;
 
-    private Boolean isChecked;
+    //생성 메소드
+    public static CartItem createCartItem(
+            Product product,
+            int quantity
+    ){
+        CartItem cartItem = new CartItem();
+        cartItem.product = product;
+        cartItem.quantity = quantity;
+        return cartItem;
+    }
 
-    public CartItem(Long id,
-                    Cart cart,
-                    Product product,
-                    int quantity,
-                    Boolean isChecked) {
-        this.id = id;
+    //편의 메서드
+    public void addCart(Cart cart){
         this.cart = cart;
-        this.product = product;
-        this.quantity = quantity;
-        this.isChecked = isChecked;
     }
 }

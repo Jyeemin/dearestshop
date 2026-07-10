@@ -1,13 +1,16 @@
 package dearest.dearestshop.domain.product;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Category {
 
     @Id @GeneratedValue
@@ -19,9 +22,15 @@ public class Category {
     @OneToMany(mappedBy = "category")
     private List<Product> products = new ArrayList<>();
 
-    public Category(Long id, String category_name, List<Product> products) {
-        this.id = id;
-        this.category_name = category_name;
-        this.products = products;
+    //생성 메소드
+    public static Category createCategory(String category_name){
+        Category category = new Category();
+        category.category_name = category_name;
+        return category;
+    }
+
+    //편의 메소드
+    public void addProduct(Product product){
+        products.add(product);
     }
 }

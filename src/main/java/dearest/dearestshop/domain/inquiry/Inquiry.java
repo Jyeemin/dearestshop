@@ -3,10 +3,13 @@ package dearest.dearestshop.domain.inquiry;
 import dearest.dearestshop.domain.BaseTimeEntity;
 import dearest.dearestshop.domain.member.Member;
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Inquiry extends BaseTimeEntity {
 
     @Id @GeneratedValue
@@ -17,8 +20,7 @@ public class Inquiry extends BaseTimeEntity {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "inquiryanswer_id")
+    @OneToOne(mappedBy = "inquiry", fetch = FetchType.LAZY)
     private InquiryAnswer inquiryAnswer;
 
     private String title;
@@ -26,15 +28,22 @@ public class Inquiry extends BaseTimeEntity {
     @Column(length = 3000)
     private String content;
 
-    public Inquiry(Long id,
-                   Member member,
-                   InquiryAnswer inquiryAnswer,
-                   String title,
-                   String content) {
-        this.id = id;
-        this.member = member;
+    //연관관계 편의 메서드
+    public void addInquiryAnswer(InquiryAnswer inquiryAnswer){
         this.inquiryAnswer = inquiryAnswer;
-        this.title = title;
-        this.content = content;
+        inquiryAnswer.addinquiry(this);
+    }
+
+    //생성 메소드
+    public static Inquiry createInquiry(
+            Member member,
+            String title,
+            String content
+    ){
+        Inquiry inquiry = new Inquiry();
+        inquiry.member = member;
+        inquiry.title = title;
+        inquiry.content = content;
+        return inquiry;
     }
 }

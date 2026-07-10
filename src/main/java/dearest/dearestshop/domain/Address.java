@@ -8,12 +8,9 @@ import lombok.Getter;
 @Getter
 public class Address {
 
-    private String baseaddress;
-    private String detailaddress;
+    private String baseAddress;
+    private String detailAddress;
 
-    public Address(String baseaddress, String detailaddress) {
-        this.baseaddress = baseaddress;
-        this.detailaddress = detailaddress;
-    }
+
 }
 

@@ -2,10 +2,13 @@ package dearest.dearestshop.domain.order;
 
 import dearest.dearestshop.domain.product.Product;
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class OrderItem {
 
     @Id @GeneratedValue
@@ -24,15 +27,17 @@ public class OrderItem {
 
     private int quantity;
 
-    public OrderItem(Long id,
-                     Product product,
-                     Order order,
-                     int orderPrice,
-                     int quantity) {
-        this.id = id;
-        this.product = product;
+    // 생성 메서드
+    public static OrderItem createOrderItem(Product product, int orderPrice, int quantity) {
+        OrderItem orderItem = new OrderItem();
+        orderItem.product = product;
+        orderItem.orderPrice = orderPrice;
+        orderItem.quantity = quantity;
+        return orderItem;
+    }
+
+    //편의 메서드
+    public void addOrder(Order order) {
         this.order = order;
-        this.orderPrice = orderPrice;
-        this.quantity = quantity;
     }
 }

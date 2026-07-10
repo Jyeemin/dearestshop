@@ -3,7 +3,9 @@ package dearest.dearestshop.domain.order;
 import dearest.dearestshop.domain.BaseTimeEntity;
 import dearest.dearestshop.domain.member.Member;
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +13,7 @@ import java.util.List;
 @Entity
 @Getter
 @Table(name = "orders")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Order extends BaseTimeEntity {
 
     @Id @GeneratedValue
@@ -31,16 +34,39 @@ public class Order extends BaseTimeEntity {
     @JoinColumn(name = "delivery_id")
     private Delivery delivery;
 
-    public Order(Long id,
-                 Member member,
-                 List<OrderItem> orderItems,
-                 OrderStatus orderStatus,
-                 Delivery delivery) {
-        this.id = id;
-        this.member = member;
-        this.orderItems = orderItems;
-        this.orderStatus = orderStatus;
+    //연관관계 편의 메서드
+    public void addOrderItem(OrderItem orderItem) {
+        orderItems.add(orderItem);
+        orderItem.addOrder(this);
+    }
+
+    public void addDelivery(Delivery delivery) {
         this.delivery = delivery;
+        delivery.addOrder(this);
+    }
+
+    //생성 메소드
+    public static Order createOrder(
+            Member member,
+            Delivery delivery,
+            List<OrderItem> orderItems
+    ) {
+        Order order = new Order();
+
+        order.orderStatus = OrderStatus.ORDER;
+
+        member.addOrder(order);
+        order.addDelivery(delivery);
+
+        for (OrderItem item : orderItems) {
+            order.addOrderItem(item);
+        }
+
+        return order;
+    }
+    //편의 메서드
+    public void addMember(Member member){
+        this.member = member;
     }
 
 }
