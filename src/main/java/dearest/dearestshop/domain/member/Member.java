@@ -8,7 +8,6 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,8 +27,6 @@ public class Member extends BaseTimeEntity {
 
     @Column(nullable = false)
     private String password;
-
-    private LocalDate birthDate;
 
     private String phoneNumber;
 
@@ -53,7 +50,6 @@ public class Member extends BaseTimeEntity {
             String name,
             String email,
             String password,
-            LocalDate birthDate,
             String phoneNumber
     ) {
         Member member = new Member();
@@ -61,7 +57,6 @@ public class Member extends BaseTimeEntity {
         member.name = name;
         member.email = email;
         member.password = password;
-        member.birthDate = birthDate;
         member.phoneNumber = phoneNumber;
 
         member.role = Role.USER;
