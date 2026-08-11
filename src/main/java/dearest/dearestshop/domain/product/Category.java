@@ -17,15 +17,16 @@ public class Category {
     @Column(name = "category_id")
     private Long id;
 
-    private String category_name;
+    @Column(name = "category_name", unique = true, nullable = false)
+    private String categoryName;
 
     @OneToMany(mappedBy = "category")
     private List<Product> products = new ArrayList<>();
 
     //생성 메소드
-    public static Category createCategory(String category_name){
+    public static Category createCategory(String categoryName){
         Category category = new Category();
-        category.category_name = category_name;
+        category.categoryName = categoryName;
         return category;
     }
 

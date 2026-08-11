@@ -28,6 +28,8 @@ public class Product extends BaseTimeEntity {
 
     private int stockQuantity;
 
+    private int salesCount;
+
     @OneToMany(
             mappedBy = "product",
             cascade = CascadeType.ALL,
@@ -72,6 +74,7 @@ public class Product extends BaseTimeEntity {
             String detailDescription,
             int price,
             int stockQuantity,
+            int salesCount,
             List<ProductImage> images,
             Category category
     ){
@@ -80,6 +83,7 @@ public class Product extends BaseTimeEntity {
         product.detailDescription = detailDescription;
         product.price = price;
         product.stockQuantity = stockQuantity;
+        product.salesCount = salesCount;
 
         product.addProductImages(images);
         product.addCategory(category);
@@ -94,7 +98,7 @@ public class Product extends BaseTimeEntity {
 
     public void changeDetailDescription(String detailDescription) {this.detailDescription = detailDescription;}
 
-    public void changePrice(int price){this.price = this.price;}
+    public void changePrice(int price){this.price = price;}
 
     public void changeStockQuantity(int stockQuantity){this.stockQuantity = stockQuantity;}
 

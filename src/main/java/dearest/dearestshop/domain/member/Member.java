@@ -86,5 +86,8 @@ public class Member extends BaseTimeEntity {
         this.address = address;
     }
 
+    public void changeRole(Role role) {this.role = role;
+    }
+
 
 }
