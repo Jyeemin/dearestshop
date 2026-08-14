@@ -1,4 +1,4 @@
-package dearest.dearestshop.dto;
+package dearest.dearestshop.dto.memberdto;
 
 import lombok.Data;
 

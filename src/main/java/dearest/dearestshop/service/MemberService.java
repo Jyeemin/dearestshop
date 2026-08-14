@@ -1,19 +1,19 @@
 package dearest.dearestshop.service;
 
 import dearest.dearestshop.domain.member.Member;
-import dearest.dearestshop.dto.LoginResponseDto;
-import dearest.dearestshop.dto.MemberJoinDto;
-import dearest.dearestshop.dto.MemberLoginDto;
+import dearest.dearestshop.dto.memberdto.LoginResponseDto;
+import dearest.dearestshop.dto.memberdto.MemberJoinDto;
+import dearest.dearestshop.dto.memberdto.MemberLoginDto;
+import dearest.dearestshop.dto.memberdto.MemberResponseDto;
 import dearest.dearestshop.jwt.JwtProvider;
 import dearest.dearestshop.repository.MemberRepository;
-import io.jsonwebtoken.Jwt;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
@@ -78,15 +78,30 @@ public class MemberService {
     }
 
     /**
-     * 아이디 찾기
+     * 비밀번호 찾기
      * (이메일을 입력받아 일치 시 해당 이메일로 아이디 전송)
      */
+    public Long findPassword(String email) {
+        Member findMember = memberRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("존재하지 않는 이메일입니다."));
 
+        return findMember.getId();
+    }
 
     /**
      * 회원 전체 조회
      */
-    public List<Member> findAll(){
-        return memberRepository.findAll();
+    public List<MemberResponseDto> findAll(){
+        List<Member> members = memberRepository.findAll();
+        return members.stream()
+                .map(member -> new MemberResponseDto(
+                        member.getId(),
+                        member.getName(),
+                        member.getEmail(),
+                        member.getPhoneNumber(),
+                        member.getAddress(),
+                        member.getRole()
+                )).toList();
     }
+    //todo 주문조회 추가
 }

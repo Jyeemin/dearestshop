@@ -1,18 +1,14 @@
 package dearest.dearestshop.service;
 
 import dearest.dearestshop.domain.member.Member;
-import dearest.dearestshop.dto.MemberJoinDto;
-import dearest.dearestshop.dto.MemberLoginDto;
+import dearest.dearestshop.dto.memberdto.MemberJoinDto;
+import dearest.dearestshop.dto.memberdto.MemberLoginDto;
 import dearest.dearestshop.repository.MemberRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.Assert;
-
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 

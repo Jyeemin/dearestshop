@@ -1,12 +1,18 @@
-package dearest.dearestshop.dto;
+package dearest.dearestshop.dto.memberdto;
 
 
 import dearest.dearestshop.domain.Address;
 import dearest.dearestshop.domain.member.Role;
 import dearest.dearestshop.domain.order.Order;
+import dearest.dearestshop.dto.orderdto.OrderResponseDto;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
+@Data
+@AllArgsConstructor
 public class MemberResponseDto {
     private Long id;
 
@@ -20,7 +26,6 @@ public class MemberResponseDto {
 
     private Role role;
 
-    private List<OrderResponseDto> orders;
 }
 
 

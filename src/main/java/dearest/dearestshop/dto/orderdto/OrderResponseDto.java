@@ -1,4 +1,4 @@
-package dearest.dearestshop.dto;
+package dearest.dearestshop.dto.orderdto;
 
 import dearest.dearestshop.domain.order.OrderStatus;
 import lombok.Data;

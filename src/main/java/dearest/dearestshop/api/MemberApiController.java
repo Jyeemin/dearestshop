@@ -1,14 +1,16 @@
 package dearest.dearestshop.api;
 
-import dearest.dearestshop.dto.LoginResponseDto;
-import dearest.dearestshop.dto.MemberJoinDto;
-import dearest.dearestshop.dto.MemberLoginDto;
+import dearest.dearestshop.dto.memberdto.LoginResponseDto;
+import dearest.dearestshop.dto.memberdto.MemberJoinDto;
+import dearest.dearestshop.dto.memberdto.MemberLoginDto;
+import dearest.dearestshop.dto.memberdto.MemberResponseDto;
 import dearest.dearestshop.service.MemberService;
 import jakarta.validation.Valid;
-import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/members")
@@ -17,6 +19,11 @@ public class MemberApiController {
 
     private final MemberService memberService;
 
+    /**
+     * 회원가입
+     * @param dto
+     * @return
+     */
     @PostMapping("/join")
     public ResponseEntity<ApiResponse<Long>> joinMember(@RequestBody @Valid MemberJoinDto dto){
         Long joinId = memberService.join(dto);
@@ -31,6 +38,11 @@ public class MemberApiController {
         return ResponseEntity.ok(response);
     }
 
+    /**
+     * 로그인
+     * @param dto
+     * @return
+     */
     @PostMapping("/login")
     public ResponseEntity<ApiResponse<LoginResponseDto>> loginMember(@RequestBody MemberLoginDto dto){
         LoginResponseDto loginResponse = memberService.login(dto);
@@ -41,9 +53,10 @@ public class MemberApiController {
         );
 
         return ResponseEntity.ok(response);
-
     }
 
-    }
+
+
+}
 
 
