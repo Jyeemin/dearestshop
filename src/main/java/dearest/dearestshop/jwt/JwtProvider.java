@@ -58,12 +58,16 @@ public class JwtProvider {
     public boolean validateToken(String token) {
 
         try {
-            Jwts.parser()
+                    Jwts.parser()
                     .verifyWith(key)
                     .build()
                     .parseSignedClaims(token);
             return true;
         } catch (Exception e) {
+            System.out.println("===== JWT ERROR =====");
+            System.out.println("에러 종류 = " + e.getClass().getName());
+            System.out.println("에러 내용 = " + e.getMessage());
+            e.printStackTrace();
             return false;
         }
     }

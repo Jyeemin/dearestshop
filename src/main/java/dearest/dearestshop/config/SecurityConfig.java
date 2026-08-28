@@ -31,8 +31,6 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(
             HttpSecurity http
     ) throws Exception {
-
-
         http
                 .cors(cors -> {})
                 // React + JWT 방식에서는 보통 사용하지 않음

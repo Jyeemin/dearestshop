@@ -1,12 +1,14 @@
 package dearest.dearestshop.api;
 
 import dearest.dearestshop.dto.memberdto.MemberResponseDto;
+import dearest.dearestshop.dto.productdto.ProductCreateDto;
+import dearest.dearestshop.dto.productdto.ProductInfoDto;
 import dearest.dearestshop.service.MemberService;
+import dearest.dearestshop.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -16,6 +18,7 @@ import java.util.List;
 public class adminApiController {
 
     private final MemberService memberService;
+    private final ProductService productService;
 
     /**
      * 회원목록조회
@@ -32,4 +35,18 @@ public class adminApiController {
     }
 
 
+    @PostMapping("/product/new")
+    public ResponseEntity<ApiResponse<Long>> createProduct(@RequestPart("product") ProductCreateDto productCreateDto,
+                                                             @RequestPart("images") List<MultipartFile> images,
+                                                             @RequestPart("productInfoDtos") List<ProductInfoDto> productInfoDtos) {
+        Long product = productService.createProduct(productCreateDto, images, productInfoDtos);
+        ApiResponse<Long> response = new ApiResponse<>(
+                true,
+                "상품 추가 성공",
+                product
+        );
+
+
+        return ResponseEntity.ok(response);
+    }
 }

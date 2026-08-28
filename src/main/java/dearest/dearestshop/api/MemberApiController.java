@@ -3,14 +3,11 @@ package dearest.dearestshop.api;
 import dearest.dearestshop.dto.memberdto.LoginResponseDto;
 import dearest.dearestshop.dto.memberdto.MemberJoinDto;
 import dearest.dearestshop.dto.memberdto.MemberLoginDto;
-import dearest.dearestshop.dto.memberdto.MemberResponseDto;
 import dearest.dearestshop.service.MemberService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/members")

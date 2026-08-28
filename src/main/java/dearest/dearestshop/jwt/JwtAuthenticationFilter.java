@@ -39,7 +39,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         //3."Bearer "를 제외하고 실제 JWT만 가져오기
         String token = authorization.substring(7);
-        System.out.println("JWT 발견");
 
         //4. JWT가 정상인지 확인
         if (jwtProvider.validateToken(token)) {
