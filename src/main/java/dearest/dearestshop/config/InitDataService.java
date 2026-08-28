@@ -73,12 +73,12 @@ public class InitDataService {
         Category categoryTops = categoryRepository.findByCategoryName("TOPS").orElseThrow();
 
 
-        Product product1 = Product.createProduct("dear logo tee", "Fitted 실루엣\n 크롭기장\n dearest로고 핫픽스 \n 라운드 네크라인",19000,10, 0, List.of(productImages.get(0)), categoryTops);
-        Product product2 = Product.createProduct("dear logo tee soft", "Fitted 실루엣\n 크롭기장\n dearest로고 핫픽스 \n 라운드 네크라인",19000,10, 0, List.of(productImages.get(1)), categoryTops);
-        Product product3 = Product.createProduct("dear logo tee pink", "Fitted 실루엣\n 크롭기장\n dearest로고 핫픽스 \n 라운드 네크라인",19000,10, 0, List.of(productImages.get(2)), categoryTops);
-        Product product4 = Product.createProduct("lace tee", "Fitted 실루엣\n 크롭기장\n 프릴 디테일&레이스 트리밍 \n 라운드 네크라인",22000,10, 0, List.of(productImages.get(3)), categoryTops);
-        Product product5 = Product.createProduct("lace tee pink", "Fitted 실루엣\n 크롭기장\n 프릴 디테일&레이스 트리밍 \n 라운드 네크라인",22000,10, 0, List.of(productImages.get(4)), categoryTops);
-        Product product6 = Product.createProduct("ribbon tee", "Fitted 실루엣\n 크롭기장\n 프릴 디테일&레이스 트리밍 \n 라운드 네크라인",20000,10, 0, List.of(productImages.get(5)), categoryTops);
+        Product product1 = Product.createProduct("dear logo tee", "Fitted 실루엣\n 크롭기장\n dearest로고 핫픽스 \n 라운드 네크라인",19000,10, 0, List.of(ProductSize.S, ProductSize.M), List.of(productImages.get(0)), categoryTops);
+        Product product2 = Product.createProduct("dear logo tee soft", "Fitted 실루엣\n 크롭기장\n dearest로고 핫픽스 \n 라운드 네크라인",19000,10, 0, List.of(ProductSize.S, ProductSize.M),List.of(productImages.get(1)), categoryTops);
+        Product product3 = Product.createProduct("dear logo tee pink", "Fitted 실루엣\n 크롭기장\n dearest로고 핫픽스 \n 라운드 네크라인",19000,10, 0, List.of(ProductSize.S, ProductSize.M),List.of(productImages.get(2)), categoryTops);
+        Product product4 = Product.createProduct("lace tee", "Fitted 실루엣\n 크롭기장\n 프릴 디테일&레이스 트리밍 \n 라운드 네크라인",22000,10, 0, List.of(ProductSize.S, ProductSize.M, ProductSize.L),List.of(productImages.get(3)), categoryTops);
+        Product product5 = Product.createProduct("lace tee pink", "Fitted 실루엣\n 크롭기장\n 프릴 디테일&레이스 트리밍 \n 라운드 네크라인",22000,10, 0, List.of(ProductSize.S, ProductSize.M,ProductSize.L),List.of(productImages.get(4)), categoryTops);
+        Product product6 = Product.createProduct("ribbon tee", "Fitted 실루엣\n 크롭기장\n 프릴 디테일&레이스 트리밍 \n 라운드 네크라인",20000,10, 0, List.of(ProductSize.S, ProductSize.M),List.of(productImages.get(5)), categoryTops);
 
         List<Product> products = List.of(product1,product2,product3,product4,product5,product6);
         productRepository.saveAll(products);

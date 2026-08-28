@@ -30,6 +30,11 @@ public class Product extends BaseTimeEntity {
 
     private int salesCount;
 
+    @ElementCollection
+    @CollectionTable(name = "product_size", joinColumns = @JoinColumn(name = "product_id"))
+    @Enumerated(EnumType.STRING)
+    private List<ProductSize> sizes = new ArrayList<>();
+
     @OneToMany(
             mappedBy = "product",
             cascade = CascadeType.ALL,
@@ -75,6 +80,7 @@ public class Product extends BaseTimeEntity {
             int price,
             int stockQuantity,
             int salesCount,
+            List<ProductSize> sizes,
             List<ProductImage> images,
             Category category
     ){
@@ -84,6 +90,7 @@ public class Product extends BaseTimeEntity {
         product.price = price;
         product.stockQuantity = stockQuantity;
         product.salesCount = salesCount;
+        product.sizes = sizes;
 
         product.addProductImages(images);
         product.addCategory(category);

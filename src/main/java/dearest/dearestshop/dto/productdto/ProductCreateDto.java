@@ -1,14 +1,14 @@
 package dearest.dearestshop.dto.productdto;
 
-import lombok.AllArgsConstructor;
+import dearest.dearestshop.domain.product.ProductSize;
 import lombok.Data;
-import org.springframework.web.multipart.MultipartFile;
+import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Data
-@AllArgsConstructor
+@NoArgsConstructor
 public class ProductCreateDto {
     private String productName;
 
@@ -17,6 +17,8 @@ public class ProductCreateDto {
     private int price;
 
     private int stockQuantity;
+
+    private List<ProductSize> sizes = new ArrayList<>();
 
     private Long categoryId;
 

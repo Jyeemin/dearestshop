@@ -52,6 +52,10 @@ public class SecurityConfig {
                         )
                         .permitAll()
 
+                        .requestMatchers(
+                                "/api/products/**"
+                        ).permitAll()
+
                         //관리자 API
                         .requestMatchers(
                                 "/api/admin/**"

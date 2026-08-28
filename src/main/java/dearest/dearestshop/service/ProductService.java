@@ -2,6 +2,7 @@ package dearest.dearestshop.service;
 
 import dearest.dearestshop.domain.product.*;
 import dearest.dearestshop.dto.productdto.ProductCreateDto;
+import dearest.dearestshop.dto.productdto.ProductDetailResponseDto;
 import dearest.dearestshop.dto.productdto.ProductInfoDto;
 import dearest.dearestshop.dto.productdto.ProductResponseDto;
 import dearest.dearestshop.repository.CategoryRepository;
@@ -72,6 +73,7 @@ public class ProductService {
                 dto.getPrice(),
                 dto.getStockQuantity(),
                 0,
+                dto.getSizes(),
                 productImages,
                 category
         );
@@ -107,6 +109,26 @@ public class ProductService {
 
                     }).toList();
 
+
+    }
+
+    public ProductDetailResponseDto findOne(Long id) {
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> {
+                    return new RuntimeException("상품이 존재하지 않습니다.");
+                });
+
+        List<String> urls = product.getImages().stream()
+                .map((productImage) -> {
+                    return productImage.getFileInfo().getImgUrl();
+                }).toList();
+
+        return new ProductDetailResponseDto(
+                product.getProductName(),
+                product.getDetailDescription(),
+                product.getPrice(),
+                product.getSizes(),
+                urls);
 
     }
 
