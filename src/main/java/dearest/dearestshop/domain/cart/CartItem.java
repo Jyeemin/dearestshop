@@ -1,6 +1,7 @@
 package dearest.dearestshop.domain.cart;
 
 import dearest.dearestshop.domain.product.Product;
+import dearest.dearestshop.domain.product.ProductSize;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -25,14 +26,19 @@ public class CartItem {
 
     private int quantity;
 
+    private ProductSize productSize;
+
+    //생성 메소드
     //생성 메소드
     public static CartItem createCartItem(
             Product product,
-            int quantity
+            int quantity,
+            ProductSize productSize
     ){
         CartItem cartItem = new CartItem();
         cartItem.product = product;
         cartItem.quantity = quantity;
+        cartItem.productSize = productSize;
         return cartItem;
     }
 

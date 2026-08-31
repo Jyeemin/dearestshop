@@ -124,6 +124,7 @@ public class ProductService {
                 }).toList();
 
         return new ProductDetailResponseDto(
+                product.getId(),
                 product.getProductName(),
                 product.getDetailDescription(),
                 product.getPrice(),

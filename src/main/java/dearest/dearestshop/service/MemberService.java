@@ -103,4 +103,11 @@ public class MemberService {
                 )).toList();
     }
     //todo 주문조회 추가
+
+    public Member findOne(String email) {
+        Member member = memberRepository.findByEmail(email).orElseThrow(() -> {
+            return new RuntimeException("회원이 존재하지 않습니다.");
+        });
+        return member;
+    }
 }
