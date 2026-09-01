@@ -88,7 +88,9 @@ public class SecurityConfig {
                         "GET",
                         "POST",
                         "PUT",
-                        "DELETE"
+                        "DELETE",
+                        "PATCH",
+                        "OPTNIOS"
                 )
         );
 

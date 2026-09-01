@@ -21,6 +21,10 @@ public class ProductApiController {
     private final ProductService productService;
     private final CartService cartService;
 
+    /**
+     * 상품 전체 화면 조회
+     * @return
+     */
     @GetMapping
     public ResponseEntity<ApiResponse<List<ProductResponseDto>>> products(){
         List<ProductResponseDto> all = productService.findAll();
@@ -33,6 +37,11 @@ public class ProductApiController {
         return ResponseEntity.ok(response);
     }
 
+    /**
+     * 상품 상세 화면 조회
+     * @param id
+     * @return
+     */
     @GetMapping("/{id}")
     public ResponseEntity<ApiResponse<ProductDetailResponseDto>> productDetail(
             @PathVariable Long id
@@ -49,6 +58,11 @@ public class ProductApiController {
         return ResponseEntity.ok(response);
     }
 
+    /**
+     * 카트에 상품 추가
+     * @param cartAddDto
+     * @return
+     */
     @PostMapping("/cart")
     public ResponseEntity<ApiResponse<Long>> addCart(
             @RequestBody CartAddDto cartAddDto
@@ -64,6 +78,10 @@ public class ProductApiController {
         return ResponseEntity.ok(response);
     }
 
+    /**
+     * 카트 목록 화면 조회
+     * @return
+     */
     @GetMapping("/cart/cartlist")
     public ResponseEntity<ApiResponse<List<CartListDto>>> cartList() {
         List<CartListDto> cartListDtos = cartService.cartList();
@@ -76,8 +94,41 @@ public class ProductApiController {
         return ResponseEntity.ok(response);
     }
 
+    /**
+     * 카트 아이템 수량 변경
+     * @param cartItemId
+     * @param quantity
+     * @return
+     */
+    @PatchMapping("/cart/{cartItemId}")
+    public ResponseEntity<ApiResponse<String>> updateQuantity(
+            @PathVariable Long cartItemId,
+            @RequestBody int quantity
+    ) {
+        cartService.updateQuantity(cartItemId, quantity);
 
+        ApiResponse<String> response = new ApiResponse<>(
+                true,
+                "상품 수량 변경 성공",
+                "ok"
+        );
+        return ResponseEntity.ok(response);
+    }
 
+    @DeleteMapping("/cart/{cartItemId}")
+    public ResponseEntity<ApiResponse<String>> deleteCartItem(
+            @PathVariable Long cartItemId
+    ){
+        cartService.deleteCartItem(cartItemId);
+
+        ApiResponse<String> response = new ApiResponse<>(
+                true,
+                "상품 삭제 성공",
+                "ok"
+        );
+
+        return ResponseEntity.ok(response);
+    }
 
 
 }

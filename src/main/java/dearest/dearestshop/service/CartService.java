@@ -9,6 +9,7 @@ import dearest.dearestshop.domain.product.Product;
 import dearest.dearestshop.domain.product.ProductImage;
 import dearest.dearestshop.dto.cartdto.CartAddDto;
 import dearest.dearestshop.dto.cartdto.CartListDto;
+import dearest.dearestshop.repository.CartItemRepository;
 import dearest.dearestshop.repository.CartRepository;
 import dearest.dearestshop.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
@@ -24,9 +25,15 @@ import java.util.List;
 @Transactional(readOnly = true)
 public class CartService {
     private final CartRepository cartRepository;
+    private final CartItemRepository cartItemRepository;
     private final ProductRepository productRepository;
     private final MemberService memberService;
 
+    /**
+     * 카트에 상품 추가
+     * @param cartAddDto
+     * @return
+     */
     @Transactional
     public Long addCart(CartAddDto cartAddDto) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -49,6 +56,10 @@ public class CartService {
         return cartItem.getId();
     }
 
+    /**
+     * 카트 아이템 조회
+     * @return
+     */
     public List<CartListDto> cartList() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Member member = memberService.findOne(authentication.getName());
@@ -87,6 +98,36 @@ public class CartService {
                     );
                 })
                 .toList();
+    }
+
+    /**
+     * 카트 상품 수량 변경
+     * @param cartItemId
+     * @param quantity
+     */
+    @Transactional
+    public void updateQuantity(Long cartItemId, int quantity) {
+        if (quantity < 1) {
+            throw new RuntimeException("수량은 1개 이상이어야 합니다.");
+        }
+
+        CartItem cartItem = cartItemRepository.findById(cartItemId).orElseThrow(
+                () -> {
+                    return new RuntimeException("카트에 존재하지 않는 상품입니다.");
+                }
+        );
+
+        cartItem.changeQuantity(quantity);
+    }
+
+    @Transactional
+    public void deleteCartItem(Long cartItemId) {
+        CartItem cartItem = cartItemRepository.findById(cartItemId).orElseThrow(
+                () -> {
+                    return new RuntimeException("카트에 존재하지 않는 상품입니다.");
+                }
+        );
+        cartItemRepository.delete(cartItem);
     }
 
 
