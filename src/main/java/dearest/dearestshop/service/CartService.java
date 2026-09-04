@@ -6,7 +6,6 @@ import dearest.dearestshop.domain.cart.CartItem;
 import dearest.dearestshop.domain.member.Member;
 import dearest.dearestshop.domain.product.ImageType;
 import dearest.dearestshop.domain.product.Product;
-import dearest.dearestshop.domain.product.ProductImage;
 import dearest.dearestshop.dto.cartdto.CartAddDto;
 import dearest.dearestshop.dto.cartdto.CartListDto;
 import dearest.dearestshop.repository.CartItemRepository;

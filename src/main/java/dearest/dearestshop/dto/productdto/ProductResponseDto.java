@@ -21,4 +21,6 @@ public class ProductResponseDto {
 
     private String categoryName;
 
+    private boolean isWishlist;
+
 }
