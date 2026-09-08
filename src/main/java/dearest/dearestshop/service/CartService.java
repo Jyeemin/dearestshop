@@ -35,8 +35,7 @@ public class CartService {
      */
     @Transactional
     public Long addCart(CartAddDto cartAddDto) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Member member = memberService.findOne(authentication.getName());
+        Member member = memberService.getLoginMember();
 
         Cart cart = cartRepository.findByMember(member)
                 .orElse(null);
@@ -60,8 +59,7 @@ public class CartService {
      * @return
      */
     public List<CartListDto> cartList() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Member member = memberService.findOne(authentication.getName());
+        Member member = memberService.getLoginMember();
 
         Cart cart = cartRepository.findByMember(member).orElseThrow(() -> {
             return new RuntimeException("카트가 존재하지 않음");

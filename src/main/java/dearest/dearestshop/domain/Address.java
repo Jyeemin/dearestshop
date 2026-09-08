@@ -1,16 +1,65 @@
 package dearest.dearestshop.domain;
 
-import jakarta.persistence.Embeddable;
+import dearest.dearestshop.domain.member.Member;
+import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-//값 타입은 변경 불가능하게 설계해야한다
-@Embeddable
+
+@Entity
 @Getter
+@NoArgsConstructor
 public class Address {
 
-    private String baseAddress;
+    @Id
+    @GeneratedValue
+    @Column(name = "address_id")
+    private Long addressId;
+
+    private String zoneCode;
+
+    private String roadAddress;
+
     private String detailAddress;
 
+    private boolean isDefault;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
+    private Member member;
+
+    //편의 메서드
+    public void addMember(Member member){
+        this.member = member;
+    }
+
+    public static Address createAddress(
+            String zoneCode, String roadAddress, String detailAddress,
+            boolean isDefault, Member member
+    ) {
+        Address address = new Address();
+        address.zoneCode = zoneCode;
+        address.roadAddress = roadAddress;
+        address.detailAddress = detailAddress;
+        address.isDefault = isDefault;
+        address.member = member;
+        return address;
+    }
+
+    public void changeDefault(boolean isDefault) {
+        this.isDefault = isDefault;
+    }
+
+    public void changeZoneCode(String zoneCode) {
+        this.zoneCode = zoneCode;
+    }
+
+    public void changeRoadAddress(String roadAddress) {
+        this.roadAddress = roadAddress;
+    }
+
+    public void changeDetailAddress(String detailAddress) {
+        this.detailAddress = detailAddress;
+    }
 }
 

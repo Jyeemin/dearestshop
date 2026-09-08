@@ -1,6 +1,5 @@
 package dearest.dearestshop.domain.order;
 
-import dearest.dearestshop.domain.Address;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -18,16 +17,22 @@ public class Delivery {
     @OneToOne(mappedBy = "delivery")
     private Order order;
 
-    @Embedded
-    private Address address;
+    private String zoneCode;
+
+    private String roadAddress;
+
+    private String detailAddress;
 
     @Enumerated(EnumType.STRING)
     private DeliveryStatus deliveryStatus; //[배송상태] READY, COMP]
 
     //생성 메소드
-    public static Delivery createDelivery(Address address){
+    public static Delivery createDelivery(
+            String zoneCode, String roadAddress, String detailAddress){
         Delivery delivery = new Delivery();
-        delivery.address = address;
+        delivery.zoneCode = zoneCode;
+        delivery.roadAddress = roadAddress;
+        delivery.detailAddress = detailAddress;
         delivery.deliveryStatus = DeliveryStatus.READY;
         return delivery;
     }

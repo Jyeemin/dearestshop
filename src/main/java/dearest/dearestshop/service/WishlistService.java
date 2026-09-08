@@ -25,7 +25,6 @@ public class WishlistService {
     private final WishlistRepository wishlistRepository;
     private final WishlistItemRepository wishlistItemRepository;
     private final MemberService memberService;
-    private final ProductService productService;
     private final ProductRepository productRepository;
 
     /**
@@ -34,16 +33,7 @@ public class WishlistService {
      */
     @Transactional
     public void toggleWishlist(Long productId) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-        if (authentication == null ||
-                !authentication.isAuthenticated() ||
-                authentication.getName().equals("anonymousUser")) {
-
-            throw new RuntimeException("로그인 후 이용해주세요.");
-        }
-
-        Member member = memberService.findOne(authentication.getName());
+        Member member = memberService.getLoginMember();
         Product product = productRepository.findById(productId).orElseThrow(() ->
                 new RuntimeException("상품이 존재하지 않습니다.")
         );
@@ -71,21 +61,7 @@ public class WishlistService {
 
 
     public List<ProductResponseDto> findMyWishlist() {
-
-        Authentication authentication =
-                SecurityContextHolder.getContext().getAuthentication();
-
-        // 로그인하지 않은 경우
-        if (authentication == null ||
-                !authentication.isAuthenticated() ||
-                authentication.getName().equals("anonymousUser")) {
-
-            throw new RuntimeException("로그인 후 이용해주세요.");
-        }
-
-        // 현재 로그인한 회원 조회
-        Member member =
-                memberService.findOne(authentication.getName());
+        Member member = memberService.getLoginMember();
 
         // 현재 회원의 위시리스트 상품 조회
         List<WishlistItem> wishlistItems =

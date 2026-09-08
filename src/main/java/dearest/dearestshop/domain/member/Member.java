@@ -30,8 +30,10 @@ public class Member extends BaseTimeEntity {
 
     private String phoneNumber;
 
-    @Embedded
-    private Address address;
+    @OneToMany(mappedBy = "member",
+                cascade = CascadeType.ALL,
+                orphanRemoval = true)
+    private List<Address> addresses = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
     private Role role;
@@ -43,6 +45,11 @@ public class Member extends BaseTimeEntity {
     public void addOrder(Order order){
         order.addMember(this);
         orders.add(order);
+    }
+
+    public void addAddress(Address address) {
+        address.addMember(this);
+        addresses.add(address);
     }
 
     //생성 메소드
@@ -82,8 +89,8 @@ public class Member extends BaseTimeEntity {
     }
 
     //주소 변경, 주문 시 호출한다
-    public void changeAddress(Address address) {
-        this.address = address;
+    public void changeAddress(List<Address> addresses) {
+        this.addresses = addresses;
     }
 
     public void changeRole(Role role) {this.role = role;

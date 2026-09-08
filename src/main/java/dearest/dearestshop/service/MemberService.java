@@ -1,6 +1,7 @@
 package dearest.dearestshop.service;
 
 import dearest.dearestshop.domain.member.Member;
+import dearest.dearestshop.dto.addressdto.AddressResponseDto;
 import dearest.dearestshop.dto.memberdto.LoginResponseDto;
 import dearest.dearestshop.dto.memberdto.MemberJoinDto;
 import dearest.dearestshop.dto.memberdto.MemberLoginDto;
@@ -8,9 +9,12 @@ import dearest.dearestshop.dto.memberdto.MemberResponseDto;
 import dearest.dearestshop.jwt.JwtProvider;
 import dearest.dearestshop.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.security.core.Authentication;
+
 
 import java.util.List;
 
@@ -98,7 +102,15 @@ public class MemberService {
                         member.getName(),
                         member.getEmail(),
                         member.getPhoneNumber(),
-                        member.getAddress(),
+                        member.getAddresses().stream()
+                                .map(address -> new AddressResponseDto(
+                                        address.getAddressId(),
+                                        address.getZoneCode(),
+                                        address.getRoadAddress(),
+                                        address.getDetailAddress(),
+                                        address.isDefault()
+                                ))
+                                .toList(),
                         member.getRole()
                 )).toList();
     }
@@ -109,5 +121,20 @@ public class MemberService {
             return new RuntimeException("회원이 존재하지 않습니다.");
         });
         return member;
+    }
+
+    public Member getLoginMember() {
+
+        Authentication authentication =
+                SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication == null ||
+                !authentication.isAuthenticated() ||
+                authentication.getName().equals("anonymousUser")) {
+
+            throw new RuntimeException("로그인 멤버 미존재");
+        }
+
+        return findOne(authentication.getName());
     }
 }
