@@ -1,7 +1,9 @@
 package dearest.dearestshop.domain;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import dearest.dearestshop.domain.member.Member;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -9,6 +11,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
 public class Address {
 
     @Id
@@ -22,6 +25,7 @@ public class Address {
 
     private String detailAddress;
 
+    @JsonProperty("isDefault")
     private boolean isDefault;
 
     @ManyToOne(fetch = FetchType.LAZY)

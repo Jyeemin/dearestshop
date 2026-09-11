@@ -128,7 +128,8 @@ public class AddressService {
 
     public List<AddressResponseDto> addresses() {
         Member member = memberService.getLoginMember();
-        List<Address> addresses = addressRepository.findByMember(member);
+        List<Address> addresses =
+                addressRepository.findByMemberOrderByAddressIdDesc(member);
 
         List<AddressResponseDto> dtos = addresses.stream().map(
                 address -> new AddressResponseDto(

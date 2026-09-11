@@ -12,8 +12,6 @@ import dearest.dearestshop.repository.CartItemRepository;
 import dearest.dearestshop.repository.CartRepository;
 import dearest.dearestshop.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -49,7 +47,7 @@ public class CartService {
             return new RuntimeException("상품이 존재하지 않음");
         });
 
-        CartItem cartItem = CartItem.createCartItem(product, cartAddDto.getQuantity(), cartAddDto.getSize());
+        CartItem cartItem = CartItem.createCartItem(product, cartAddDto.getQuantity(), cartAddDto.getPrice(),cartAddDto.getSize());
         cart.addCartItem(cartItem);
         return cartItem.getId();
     }

@@ -15,4 +15,6 @@ public interface AddressRepository extends JpaRepository<Address,Long> {
     Optional<Address> findByMemberAndIsDefaultTrue(Member member);
 
     List<Address> findByMember(Member member);
+
+    List<Address> findByMemberOrderByAddressIdDesc(Member member);
 }

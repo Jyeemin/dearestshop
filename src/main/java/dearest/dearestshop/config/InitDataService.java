@@ -1,11 +1,15 @@
 package dearest.dearestshop.config;
 
+import dearest.dearestshop.domain.Address;
 import dearest.dearestshop.domain.member.Member;
 import dearest.dearestshop.domain.member.Role;
 import dearest.dearestshop.domain.product.*;
+import dearest.dearestshop.dto.addressdto.AddressCreateDto;
+import dearest.dearestshop.repository.AddressRepository;
 import dearest.dearestshop.repository.CategoryRepository;
 import dearest.dearestshop.repository.MemberRepository;
 import dearest.dearestshop.repository.ProductRepository;
+import dearest.dearestshop.service.AddressService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -22,6 +26,7 @@ public class InitDataService {
     private final MemberRepository memberRepository;
     private final ProductRepository productRepository;
     private final PasswordEncoder passwordEncoder;
+    private final AddressRepository addressRepository;
 
     @Transactional
     public void init() {
@@ -46,12 +51,13 @@ public class InitDataService {
         /**
          * 회원 1명, 관리자 1명 생성
          */
+        Member admin = null;
         if(!memberRepository.existsByEmail("123@test.com")){
             Member member = Member.createMember("member1","123@test.com", passwordEncoder.encode("123"), "01012341234");
             memberRepository.save(member);
         }
         if(!memberRepository.existsByEmail("admin@test.com")){
-            Member admin = Member.createMember("admin","admin@test.com", passwordEncoder.encode("admin"), "01099999999");
+            admin = Member.createMember("admin","admin@test.com", passwordEncoder.encode("admin"), "01099999999");
             admin.changeRole(Role.ADMIN);
             memberRepository.save(admin);
         }
@@ -82,6 +88,9 @@ public class InitDataService {
 
         List<Product> products = List.of(product1,product2,product3,product4,product5,product6);
         productRepository.saveAll(products);
+
+
+        addressRepository.save(Address.createAddress("21578","청계천로 111","101동 101호",true, admin));
 
         System.out.println("Init data injection completed");
     }

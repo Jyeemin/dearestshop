@@ -23,16 +23,22 @@ public class Delivery {
 
     private String detailAddress;
 
+    private String receiverName;
+
+    private String deliveryMessage;
+
     @Enumerated(EnumType.STRING)
     private DeliveryStatus deliveryStatus; //[배송상태] READY, COMP]
 
     //생성 메소드
     public static Delivery createDelivery(
-            String zoneCode, String roadAddress, String detailAddress){
+            String zoneCode, String roadAddress, String detailAddress, String receiverName, String deliveryMessage){
         Delivery delivery = new Delivery();
         delivery.zoneCode = zoneCode;
         delivery.roadAddress = roadAddress;
         delivery.detailAddress = detailAddress;
+        delivery.receiverName = receiverName;
+        delivery.deliveryMessage = deliveryMessage;
         delivery.deliveryStatus = DeliveryStatus.READY;
         return delivery;
     }

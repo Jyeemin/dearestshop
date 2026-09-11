@@ -1,6 +1,7 @@
 package dearest.dearestshop.domain.order;
 
 import dearest.dearestshop.domain.product.Product;
+import dearest.dearestshop.domain.product.ProductSize;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -27,12 +28,15 @@ public class OrderItem {
 
     private int quantity;
 
+    private ProductSize size;
+
     // 생성 메서드
-    public static OrderItem createOrderItem(Product product, int orderPrice, int quantity) {
+    public static OrderItem createOrderItem(Product product, int orderPrice, int quantity, ProductSize size) {
         OrderItem orderItem = new OrderItem();
         orderItem.product = product;
         orderItem.orderPrice = orderPrice;
         orderItem.quantity = quantity;
+        orderItem.size = size;
         return orderItem;
     }
 

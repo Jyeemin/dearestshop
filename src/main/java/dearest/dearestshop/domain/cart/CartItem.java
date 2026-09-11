@@ -28,16 +28,20 @@ public class CartItem {
 
     private ProductSize productSize;
 
+    private int price;
+
     //생성 메소드
     //생성 메소드
     public static CartItem createCartItem(
             Product product,
             int quantity,
+            int price,
             ProductSize productSize
     ){
         CartItem cartItem = new CartItem();
         cartItem.product = product;
         cartItem.quantity = quantity;
+        cartItem.price = price;
         cartItem.productSize = productSize;
         return cartItem;
     }

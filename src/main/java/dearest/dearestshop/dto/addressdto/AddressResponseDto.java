@@ -1,5 +1,6 @@
 package dearest.dearestshop.dto.addressdto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,5 +13,6 @@ public class AddressResponseDto {
     private String zoneCode;
     private String roadAddress;
     private String detailAddress;
+    @JsonProperty("isDefault")
     private boolean isDefault;
 }

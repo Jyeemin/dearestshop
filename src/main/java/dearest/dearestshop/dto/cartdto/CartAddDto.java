@@ -13,5 +13,7 @@ public class CartAddDto {
 
     private int quantity;
 
+    private int price;
+
 
 }
