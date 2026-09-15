@@ -109,11 +109,26 @@ public class Product extends BaseTimeEntity {
 
     public void changeStockQuantity(int stockQuantity){this.stockQuantity = stockQuantity;}
 
+    public void increaseStockQuantity(int stockQuantity){
+        if (stockQuantity < 1) {
+            throw new IllegalArgumentException("수량은 1개 이상이어야 합니다.");
+        }
+        this.stockQuantity += stockQuantity;}
+
+    public void decreaseSalesCount (int salesCount) {
+        if (salesCount < 1) {
+            throw new IllegalArgumentException("수량은 1개 이상이어야 합니다.");
+        }
+        this.salesCount -= salesCount;
+    }
+
     public void changeCategory(Category category) {
 
         if (this.category != null) {
             this.category.getProducts().remove(this);
         }
+
+
 
         this.category = category;
         category.getProducts().add(this);

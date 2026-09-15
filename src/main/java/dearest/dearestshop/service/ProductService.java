@@ -95,16 +95,10 @@ public class ProductService {
     public List<ProductResponseDto> findAll(){
         List<Product> products = productRepository.findAll();
 
-        //로그인 여부 확인
         Set<Long> wishlistProductIds = new HashSet<>();
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication != null &&
-                authentication.isAuthenticated() &&
-                !authentication.getName().equals("anonymousUser")) {
-            Member member = memberService.findOne(authentication.getName());
-            wishlistProductIds.addAll(wishlistItemRepository.findProductIdsByMember(member));
-        }
+        Member member = memberService.getLoginMember();
+        wishlistProductIds.addAll(wishlistItemRepository.findProductIdsByMember(member));
 
 
 
@@ -131,6 +125,39 @@ public class ProductService {
 
                     }).toList();
 
+
+    }
+
+    public List<ProductResponseDto> search(String keyword) {
+        List<Product> searchProducts = productRepository.searchByProductName(keyword);
+
+        Set<Long> wishlistProductIds = new HashSet<>();
+
+        Member member = memberService.getLoginMember();
+        wishlistProductIds.addAll(wishlistItemRepository.findProductIdsByMember(member));
+
+        return searchProducts.stream().map(
+                product -> {
+                    String thumbnailUrl = product.getImages().stream()
+                            .filter(productImage -> productImage.getImageType() == ImageType.THUMBNAIL)
+                            .findFirst()
+                            .map(ProductImage::getFileInfo)
+                            .map(fileInfo -> fileInfo.getImgUrl())
+                            .orElseThrow(() -> new RuntimeException("thumbnail do not exist"));
+
+                    boolean isWishlist = wishlistProductIds.contains(product.getId());
+
+                    return new ProductResponseDto(
+                            product.getId(),
+                            product.getProductName(),
+                            product.getPrice(),
+                            thumbnailUrl,
+                            product.getCategory().getCategoryName(),
+                            isWishlist
+                    );
+
+                }
+        ).toList();
 
     }
 

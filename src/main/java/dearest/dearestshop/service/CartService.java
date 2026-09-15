@@ -47,6 +47,15 @@ public class CartService {
             return new RuntimeException("상품이 존재하지 않음");
         });
 
+        CartItem findcartItem = cartItemRepository.findByCartAndProductAndProductSize(
+                cart, product, cartAddDto.getSize()
+        ).orElse(null);
+
+        if (findcartItem != null) {
+            updateQuantity(findcartItem.getId(), findcartItem.getQuantity() + cartAddDto.getQuantity());
+            return findcartItem.getId();
+        }
+
         CartItem cartItem = CartItem.createCartItem(product, cartAddDto.getQuantity(), cartAddDto.getPrice(),cartAddDto.getSize());
         cart.addCartItem(cartItem);
         return cartItem.getId();

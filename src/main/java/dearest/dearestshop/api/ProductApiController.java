@@ -25,16 +25,25 @@ public class ProductApiController {
      * @return
      */
     @GetMapping
-    public ResponseEntity<ApiResponse<List<ProductResponseDto>>> products(){
-        List<ProductResponseDto> all = productService.findAll();
+    public ResponseEntity<ApiResponse<List<ProductResponseDto>>> products(
+            @RequestParam(required = false) String keyword
+    ){
+        List<ProductResponseDto> products;
+        if (keyword == null || keyword.isBlank()) {
+            products = productService.findAll();
+        } else {
+            products = productService.search(keyword);
+        }
+
 
         ApiResponse<List<ProductResponseDto>> response = new ApiResponse<>(
                 true,
                 "상품조회 성공",
-                all
+                products
         );
         return ResponseEntity.ok(response);
     }
+
 
     /**
      * 상품 상세 화면 조회
