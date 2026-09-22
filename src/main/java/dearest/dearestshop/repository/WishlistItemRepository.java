@@ -27,10 +27,9 @@ public interface WishlistItemRepository extends JpaRepository<WishlistItem, Long
     List<Long> findProductIdsByMember(@Param("member") Member member);
 
     @Query("""
-    select distinct w
+    select w
     from WishlistItem w
     join fetch w.product p
-    join fetch p.images
     join fetch p.category
     where w.wishlist.member = :member
 """)

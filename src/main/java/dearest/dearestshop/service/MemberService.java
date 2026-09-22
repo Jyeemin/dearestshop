@@ -77,7 +77,7 @@ public class MemberService {
         //JWT생성
         String token = jwtProvider.createToken(member.getEmail());
 
-        return new LoginResponseDto(token, member.getRole());
+        return new LoginResponseDto(token, member.getRole(), member.getName());
     }
 
     /**

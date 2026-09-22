@@ -72,8 +72,9 @@ public class CartService {
             return new RuntimeException("카트가 존재하지 않음");
         });
 
+        List<CartItem> allWithCartAndProduct = cartItemRepository.findAllWithCartAndProduct(cart.getId());
 
-        return cart.getCartItems()
+        return allWithCartAndProduct
                 .stream()
                 .map(cartItem -> {
 

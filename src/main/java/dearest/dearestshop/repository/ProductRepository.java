@@ -18,4 +18,13 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
             where lower(p.productName) like lower(concat('%', :keyword, '%'))
             """)
     List<Product> searchByProductName(@Param("keyword") String keyword);
+
+    @Query("""
+            select p
+            from Product p
+            join fetch p.category
+            """)
+    List<Product> findAllWithCategory();
+
+
 }

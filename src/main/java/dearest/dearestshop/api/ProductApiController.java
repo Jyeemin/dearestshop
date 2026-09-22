@@ -2,6 +2,7 @@ package dearest.dearestshop.api;
 
 import dearest.dearestshop.dto.cartdto.CartAddDto;
 import dearest.dearestshop.dto.cartdto.CartListDto;
+import dearest.dearestshop.dto.productdto.CategoryResponseDto;
 import dearest.dearestshop.dto.productdto.ProductDetailResponseDto;
 import dearest.dearestshop.dto.productdto.ProductResponseDto;
 import dearest.dearestshop.service.CartService;
@@ -26,14 +27,11 @@ public class ProductApiController {
      */
     @GetMapping
     public ResponseEntity<ApiResponse<List<ProductResponseDto>>> products(
-            @RequestParam(required = false) String keyword
+            @RequestParam(required = false) String keyword,
+            @RequestParam(required = false) Long categoryId,
+            @RequestParam(required = false) String sort
     ){
-        List<ProductResponseDto> products;
-        if (keyword == null || keyword.isBlank()) {
-            products = productService.findAll();
-        } else {
-            products = productService.search(keyword);
-        }
+        List<ProductResponseDto> products = productService.search(keyword,categoryId, sort);
 
 
         ApiResponse<List<ProductResponseDto>> response = new ApiResponse<>(
@@ -123,6 +121,11 @@ public class ProductApiController {
         return ResponseEntity.ok(response);
     }
 
+    /**
+     * 카트아이템삭제
+     * @param cartItemId
+     * @return
+     */
     @DeleteMapping("/cart/{cartItemId}")
     public ResponseEntity<ApiResponse<String>> deleteCartItem(
             @PathVariable Long cartItemId
@@ -135,6 +138,19 @@ public class ProductApiController {
                 "ok"
         );
 
+        return ResponseEntity.ok(response);
+    }
+
+
+    @GetMapping("/category")
+    public ResponseEntity<ApiResponse<List<CategoryResponseDto>>> category() {
+        List<CategoryResponseDto> categories = productService.findCategory();
+
+        ApiResponse<List<CategoryResponseDto>> response = new ApiResponse<>(
+                true,
+                "카테고리 조회 성공",
+                categories
+        );
         return ResponseEntity.ok(response);
     }
 

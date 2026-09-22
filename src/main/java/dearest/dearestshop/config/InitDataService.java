@@ -40,7 +40,6 @@ public class InitDataService {
                 "SKIRTS",
                 "PANTS",
                 "DRESSES",
-                "BAGS"
         };
 
         for (String category : categories) {

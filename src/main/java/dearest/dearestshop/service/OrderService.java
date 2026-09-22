@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 import static java.util.stream.Collectors.groupingBy;
 
@@ -76,6 +77,12 @@ public class OrderService {
                         cartItem.getProductSize())
         ).toList();
         System.out.println("생성된 orderItems = " + orderItems.size());
+
+        for (OrderItem orderItem : orderItems) {
+            orderItem.getProduct().increaseSalesCount(
+                    orderItem.getQuantity()
+            );
+        }
 
         Order order = Order.createOrder(member, deliveryService.findOne(deliveryId), orderItems);
         System.out.println("주문에 들어간 orderItems = "
@@ -230,6 +237,26 @@ public class OrderService {
         }
         order.complete();
         return orderId;
+    }
+
+    public List<OrderMyDto> myPage() {
+        Member member = memberService.getLoginMember();
+        List<Order> orders = orderRepository.findOrderMy(member.getId());
+
+
+            return orders.stream().map(
+                    order -> {
+                        int totalPrice = order.getOrderItems().stream().mapToInt(
+                                (orderItem) -> orderItem
+                                        .getOrderPrice() * orderItem.getQuantity()
+                        ).sum();
+
+
+                        return new OrderMyDto(order.getId(),
+                                totalPrice,
+                                order.getOrderStatus());
+                    }).toList();
+
     }
 
 

@@ -109,6 +109,10 @@ public class Product extends BaseTimeEntity {
 
     public void changeStockQuantity(int stockQuantity){this.stockQuantity = stockQuantity;}
 
+    public void increaseSalesCount(int quantity) {
+        this.salesCount += quantity;
+    }
+
     public void increaseStockQuantity(int stockQuantity){
         if (stockQuantity < 1) {
             throw new IllegalArgumentException("수량은 1개 이상이어야 합니다.");

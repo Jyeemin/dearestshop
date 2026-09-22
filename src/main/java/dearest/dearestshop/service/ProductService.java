@@ -2,14 +2,14 @@ package dearest.dearestshop.service;
 
 import dearest.dearestshop.domain.member.Member;
 import dearest.dearestshop.domain.product.*;
-import dearest.dearestshop.dto.productdto.ProductCreateDto;
-import dearest.dearestshop.dto.productdto.ProductDetailResponseDto;
-import dearest.dearestshop.dto.productdto.ProductInfoDto;
-import dearest.dearestshop.dto.productdto.ProductResponseDto;
+import dearest.dearestshop.dto.orderdto.OrderMyDto;
+import dearest.dearestshop.dto.productdto.*;
 import dearest.dearestshop.repository.CategoryRepository;
 import dearest.dearestshop.repository.ProductRepository;
 import dearest.dearestshop.repository.WishlistItemRepository;
+import dearest.dearestshop.repository.query.ProductQueryRepository;
 import lombok.RequiredArgsConstructor;
+import org.jspecify.annotations.Nullable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -24,6 +24,7 @@ import java.util.*;
 public class ProductService {
 
     private final ProductRepository productRepository;
+    private final ProductQueryRepository productQueryRepository;
     private final FileService fileService;
     private final CategoryRepository categoryRepository;
     private final WishlistItemRepository wishlistItemRepository;
@@ -93,7 +94,7 @@ public class ProductService {
      * @return productResponseDto
      */
     public List<ProductResponseDto> findAll(){
-        List<Product> products = productRepository.findAll();
+        List<Product> products = productRepository.findAllWithCategory();
 
         Set<Long> wishlistProductIds = new HashSet<>();
 
@@ -109,7 +110,7 @@ public class ProductService {
                                 .filter(productImage -> productImage.getImageType() == ImageType.THUMBNAIL)
                                 .findFirst()
                                 .map(ProductImage::getFileInfo)
-                                .map(fileInfo -> fileInfo.getImgUrl())
+                                .map(FileInfo::getImgUrl)
                                 .orElseThrow(() -> new RuntimeException("thumbnail do not exist"));
 
                         boolean isWishlist = wishlistProductIds.contains(product.getId());
@@ -128,13 +129,26 @@ public class ProductService {
 
     }
 
-    public List<ProductResponseDto> search(String keyword) {
-        List<Product> searchProducts = productRepository.searchByProductName(keyword);
+    public List<ProductResponseDto> search(String keyword, Long categoryId, String sort) {
+        List<Product> searchProducts = productQueryRepository.searchProducts(keyword, categoryId, sort);
+
+
 
         Set<Long> wishlistProductIds = new HashSet<>();
 
-        Member member = memberService.getLoginMember();
-        wishlistProductIds.addAll(wishlistItemRepository.findProductIdsByMember(member));
+         Authentication authentication =
+                SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication != null
+                && authentication.isAuthenticated()
+                && !"anonymousUser".equals(authentication.getName())) {
+
+            Member member = memberService.getLoginMember();
+
+            wishlistProductIds.addAll(
+                    wishlistItemRepository.findProductIdsByMember(member)
+            );
+        }
 
         return searchProducts.stream().map(
                 product -> {
@@ -182,7 +196,16 @@ public class ProductService {
 
     }
 
+    public List<CategoryResponseDto> findCategory() {
+        List<Category> categories = categoryRepository.findAll();
 
+        return categories.stream().map(
+                category -> new CategoryResponseDto(
+                        category.getId(),
+                        category.getCategoryName()
+                )
+        ).toList();
+    }
 
 }
 

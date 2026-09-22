@@ -1,9 +1,6 @@
 package dearest.dearestshop.api;
 
-import dearest.dearestshop.dto.orderdto.OrderCreateDto;
-import dearest.dearestshop.dto.orderdto.OrderDetailResponseDto;
-import dearest.dearestshop.dto.orderdto.OrderResponseDto;
-import dearest.dearestshop.dto.orderdto.OrderSearchCondition;
+import dearest.dearestshop.dto.orderdto.*;
 import dearest.dearestshop.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -49,6 +46,18 @@ public class OrderApiController {
                 true,
                 "주문상세조회 성공",
                 dto
+        );
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/my")
+    public ResponseEntity<ApiResponse<List<OrderMyDto>>> myPage() {
+        List<OrderMyDto> orderMyDtos = orderService.myPage();
+
+        ApiResponse<List<OrderMyDto>> response = new ApiResponse<>(
+                true,
+                "마이페이지조회 성공",
+                orderMyDtos
         );
         return ResponseEntity.ok(response);
     }
