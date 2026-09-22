@@ -15,6 +15,7 @@ import dearest.dearestshop.repository.*;
 import dearest.dearestshop.repository.query.OrderQueryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -25,6 +26,7 @@ import static java.util.stream.Collectors.groupingBy;
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
+@ActiveProfiles("test")
 public class OrderService {
     private final OrderQueryRepository orderQueryRepository;
     private final OrderRepository orderRepository;

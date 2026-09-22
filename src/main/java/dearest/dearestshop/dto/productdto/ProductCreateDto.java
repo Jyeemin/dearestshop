@@ -1,6 +1,7 @@
 package dearest.dearestshop.dto.productdto;
 
 import dearest.dearestshop.domain.product.ProductSize;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -9,6 +10,7 @@ import java.util.List;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class ProductCreateDto {
     private String productName;
 

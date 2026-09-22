@@ -88,11 +88,6 @@ public class Member extends BaseTimeEntity {
         this.phoneNumber = phoneNumber;
     }
 
-    //주소 변경, 주문 시 호출한다
-    public void changeAddress(List<Address> addresses) {
-        this.addresses = addresses;
-    }
-
     public void changeRole(Role role) {this.role = role;
     }
 
