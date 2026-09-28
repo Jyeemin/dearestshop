@@ -2,7 +2,6 @@ package dearest.dearestshop.jwt;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -12,6 +11,7 @@ import java.util.Date;
 
 @Component
 public class JwtProvider {
+
 
     private final SecretKey key;
 
