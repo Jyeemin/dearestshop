@@ -204,6 +204,36 @@ dearestshop
 
 ## 화면
 
+### 회원
+- 로그인
+- (docs/images/login.png)
+- 회원가입
+
+### 상품
+- 상품 목록
+- (docs/images/products.png)
+- 상품 상세
+- (docs/images/product_detail.png)
+
+### 구매
+- 장바구니
+- (docs/images/cart.png)
+- 주문
+- (docs/images/order.png)
+
+### 마이페이지
+- 마이페이지
+- (docs/images/mypage.png)
+- 주문 내역
+- (docs/images/orderlist.png)
+- 배송지 관리
+- 위시리스트
+
+### 관리자
+- 회원 관리
+- 상품 등록
+- (docs/images/product_add.png)
+
 ## 트러블슈팅 
 
 JWT 인증 및 403 오류
