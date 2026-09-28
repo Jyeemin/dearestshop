@@ -181,6 +181,7 @@ src
             └── dearestshop
 
 ## ERD
+![DEARESTSHOP ERD](docs/dearest_Erd.png)
 
 ## API 
 
