@@ -33,17 +33,7 @@ public class Wishlist extends BaseTimeEntity {
         wishlistItems.add(wishlistItem);
         wishlistItem.addWishlist(this);
     }
-
-    //생성 메소드public interface WishlistItemRepository
-    //        extends JpaRepository<WishlistItem, Long> {
-    //
-    //    @Query("""
-    //        select w.product.id
-    //        from WishlistItem w
-    //        where w.wishlist.member = :member
-    //    """)
-    //    List<Long> findProductIdsByMember(Member member);
-    //
+    
     public static Wishlist createWishlist(
             Member member
     ) {

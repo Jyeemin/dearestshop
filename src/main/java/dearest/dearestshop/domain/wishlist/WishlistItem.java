@@ -1,5 +1,6 @@
 package dearest.dearestshop.domain.wishlist;
 
+import dearest.dearestshop.domain.BaseTimeEntity;
 import dearest.dearestshop.domain.product.Product;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -9,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class WishlistItem {
+public class WishlistItem extends BaseTimeEntity {
 
     @Id @GeneratedValue
     @Column(name = "wishlist_item_id")

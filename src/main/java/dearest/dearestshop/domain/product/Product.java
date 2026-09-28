@@ -42,9 +42,6 @@ public class Product extends BaseTimeEntity {
     )
     private List<ProductImage> images = new ArrayList<>();
 
-    @OneToMany(mappedBy = "product")
-    private List<Review> reviews = new ArrayList<>();
-
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
@@ -62,11 +59,6 @@ public class Product extends BaseTimeEntity {
         }
     }
 
-    public void addReview(Review review)
-    {
-        reviews.add(review);
-        review.addProduct(this);
-    }
 
     public void addCategory(Category category){
         this.category = category;
