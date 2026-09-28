@@ -200,6 +200,7 @@ dearestshop
 ![DEARESTSHOP ERD](docs/dearest_Erd.png)
 
 ## API 
+![DEARESTSHOP API](docs/dearest_api.png)
 
 ## 화면
 
