@@ -161,24 +161,40 @@ Integration 테스트
 
 ## 프로젝트 구조
 
-src
-├── main
-│   └── java
-│       └── dearest
-│           └── dearestshop
-│               ├── api
-│               ├── config
-│               ├── controller
-│               ├── domain
-│               ├── dto
-│               ├── jwt
-│               ├── repository
-│               └── service
+```text
+dearestshop
+├── src
+│   ├── main
+│   │   ├── java
+│   │   │   └── dearest
+│   │   │       └── dearestshop
+│   │   │           ├── api
+│   │   │           ├── config
+│   │   │           ├── controller
+│   │   │           ├── domain
+│   │   │           ├── dto
+│   │   │           ├── jwt
+│   │   │           ├── repository
+│   │   │           └── service
+│   │   │
+│   │   └── resources
+│   │       └── application.yml
+│   │
+│   └── test
+│       ├── java
+│       │   └── dearest
+│       │       └── dearestshop
+│       │           └── ...
+│       └── resources
+│           └── application.yml
 │
-└── test
-    └── java
-        └── dearest
-            └── dearestshop
+├── docs
+│   └── erd.png
+│
+├── build.gradle
+├── settings.gradle
+└── README.md
+```
 
 ## ERD
 ![DEARESTSHOP ERD](docs/dearest_Erd.png)
