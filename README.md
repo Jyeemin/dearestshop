@@ -302,6 +302,7 @@ Spring Boot에서 다음과 같은 데이터베이스에 연결합니다.
 
 ```text
 jdbc:h2:tcp://localhost/~/dearestshop
+```
 
 H2서버가 실행 중인 상태에서 Backend를 실행합니다.
 
@@ -311,6 +312,7 @@ IntelliJ에서 Spring Boot 메인 클래스를 실행합니다.
 
 ```text
 http://localhost:8080
+```
 
 Spring Boot 실행 시 초기 데이터가 자동으로 생성됩니다.
 - 카테고리 : TOPS, SKIRTS, PANTS, DRESSES
@@ -333,6 +335,7 @@ npm run dev
 
 ```text
 http://localhost:5173
+```
 
 ### 4. 웹사이트 접속
 
