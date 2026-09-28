@@ -213,7 +213,7 @@ dearestshop
 - 상품 목록
   ![products](docs/images/products.png)
 - 상품 상세
-  ![product_detail](docs/images/product_detail.png)
+  ![product_detail](docs/images/products_detail.png)
 
 ### 구매
 - 장바구니
@@ -253,7 +253,7 @@ Spring Security와 JWT 인증 과정에서 발생한 인증 문제를 해결했�
 테스트 환경 분리
 
 개발 환경과 테스트 환경의 데이터베이스 설정을 분리하여
-통합 테스트에서 별도의 H2 데이터베이스를 사용하도록 구성했습니
+통합 테스트에서 별도의 H2 데이터베이스를 사용하도록 구성했습니다.
 
 ## 실행 방법 
 
