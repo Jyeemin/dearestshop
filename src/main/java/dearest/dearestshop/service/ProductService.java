@@ -142,11 +142,16 @@ public class ProductService {
         if (authentication != null
                 && authentication.isAuthenticated()
                 && !"anonymousUser".equals(authentication.getName())) {
-
+            System.out.println("로그인 사용자 = " + authentication.getName());
             Member member = memberService.getLoginMember();
+
 
             wishlistProductIds.addAll(
                     wishlistItemRepository.findProductIdsByMember(member)
+            );
+
+            System.out.println(
+                    "위시리스트 상품 ID = " + wishlistProductIds
             );
         }
 
@@ -161,6 +166,10 @@ public class ProductService {
 
                     boolean isWishlist = wishlistProductIds.contains(product.getId());
 
+                    System.out.println(
+                            "상품 ID = " + product.getId()
+                                    + ", isWishlist = " + isWishlist
+                    );
                     return new ProductResponseDto(
                             product.getId(),
                             product.getProductName(),
