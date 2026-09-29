@@ -206,7 +206,6 @@ dearestshop
 
 ### 회원
 - 로그인
-  ![login](docs/images/login.png)
 - 회원가입
 
 ### 상품
@@ -223,7 +222,6 @@ dearestshop
 
 ### 마이페이지
 - 마이페이지
-  ![mypage](docs/images/mypage.png)
 - 주문 내역
   ![orderlist](docs/images/orderlist.png)
 - 배송지 관리
