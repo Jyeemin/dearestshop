@@ -202,6 +202,12 @@ dearestshop
 ## API 
 ![DEARESTSHOP API](docs/dearest_api.png)
 
+## 프로젝트 시연 영상
+Spring Boot와 React를 이용하여 구현한 DEARESTSHOP의
+주요 기능을 확인할 수 있습니다.
+
+[![DEARESTSHOP 프로젝트 시연 영상](https://img.youtube.com/vi/Evh3d3S6uvw/maxresdefault.jpg)](https://youtu.be/Evh3d3S6uvw)
+
 ## 화면
 
 ### 회원
@@ -334,10 +340,6 @@ npm run dev
 ```text
 http://localhost:5173
 ```
-
-## 프로젝트 시연 영상
-
-[![DEARESTSHOP 프로젝트 시연 영상](https://img.youtube.com/vi/ABC123/maxresdefault.jpg)](https://www.youtube.com/watch?Evh3d3S6uvw)
 
 ### 4. 웹사이트 접속
 
