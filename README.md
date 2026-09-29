@@ -335,6 +335,10 @@ npm run dev
 http://localhost:5173
 ```
 
+## 프로젝트 시연 영상
+
+[![DEARESTSHOP 프로젝트 시연 영상](https://img.youtube.com/vi/ABC123/maxresdefault.jpg)](https://www.youtube.com/watch?Evh3d3S6uvw)
+
 ### 4. 웹사이트 접속
 
 로그인 후 상품 조회, 검색, 장바구니,
