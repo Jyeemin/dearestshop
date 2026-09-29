@@ -206,7 +206,7 @@ dearestshop
 Spring Boot와 React를 이용하여 구현한 DEARESTSHOP의
 주요 기능을 확인할 수 있습니다.
 
-[![DEARESTSHOP 프로젝트 시연 영상](https://img.youtube.com/vi/Evh3d3S6uvw/maxresdefault.jpg)](https://youtu.be/Evh3d3S6uvw)
+[![DEARESTSHOP 프로젝트 시연 영상](https://i.ytimg.com/vi/Evh3d3S6uvw/hqdefault.jpg)](https://youtu.be/Evh3d3S6uvw)
 
 ## 화면
 
