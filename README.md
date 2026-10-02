@@ -1,6 +1,19 @@
 # DEARESTSHOP
 
-Spring Boot 기반 온라인 쇼핑몰 백엔드 프로젝트
+Spring Boot와 React를 기반으로 구현한 온라인 쇼핑몰 프로젝트
+
+<p align="center">
+  <a href="https://dearestshop-react.vercel.app">
+    <img src="https://img.shields.io/badge/DEARESTSHOP-Online%20Shop-pink?style=for-the-badge" alt="DEARESTSHOP">
+  </a>
+</p>
+
+## 🔗 배포 사이트
+
+- **Frontend:** https://dearestshop-react.vercel.app
+- **Backend:** Render를 통해 Spring Boot API 서버 배포
+
+> 배포된 웹사이트에서 회원가입, 로그인, 상품 조회, 검색, 장바구니, 위시리스트, 배송지 관리, 주문 및 관리자 기능을 확인할 수 있습니다.
 
 ## 프로젝트 소개
 
