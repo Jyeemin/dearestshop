@@ -12,6 +12,8 @@ spring:
       hibernate:
         show_sql: true
         format_sql: true
+server:
+  port:  ${PORT:8080}
 
 jwt:
   secret: dearest-shop-jwt-secret-key-2026-very-long-string
