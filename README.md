@@ -11,7 +11,7 @@ Spring Boot와 React를 기반으로 구현한 온라인 쇼핑몰 프로젝트
 ## 🔗 배포 사이트
 
 - **Frontend:** https://dearestshop-react.vercel.app
-- **Backend:** Render를 통해 Spring Boot API 서버 배포
+- **Backend API:** https://dearestshop-api.onrender.com
 
 > 배포된 웹사이트에서 회원가입, 로그인, 상품 조회, 검색, 장바구니, 위시리스트, 배송지 관리, 주문 및 관리자 기능을 확인할 수 있습니다.
 
@@ -30,6 +30,8 @@ Spring Security와 JWT를 이용하여 로그인 인증 및 권한 관리를 구
 
 Frontend에서는 React를 이용하여 상품 조회부터 주문까지의
 사용자 화면과 관리자 기능을 구현했습니다.
+
+Frontend는 Vercel, Backend는 Render를 이용하여 실제 웹 환경에 배포했습니다.
 
 ---
 
@@ -58,6 +60,12 @@ Frontend에서는 React를 이용하여 상품 조회부터 주문까지의
 - Axios
 - Bootstrap
 - React Icons
+
+- ### Deployment
+
+- Vercel
+- Render
+- Docker
 
 ---
 
@@ -127,11 +135,16 @@ Frontend에서는 React를 이용하여 상품 조회부터 주문까지의
 
 Spring Security와 JWT를 이용하여 로그인 인증 및 권한 관리를 구현했습니다.
 
-로그인 성공 시 JWT를 발급하고,
-클라이언트는 이후 API 요청에 JWT를 포함하여 서버에 전달합니다.
+로그인 성공 시 JWT를 발급하고, 클라이언트에서는 발급받은 JWT를 저장한 후 이후 API 요청의 Authorization 헤더에 포함하여 서버로 전달합니다.
 
 서버에서는 JWT를 검증하여 로그인한 회원을 확인하고,
 회원의 권한에 따라 접근 가능한 기능을 구분했습니다.
+
+- JWT 기반 로그인 인증
+- Authorization 헤더를 통한 JWT 전달
+- JWT 검증을 통한 사용자 인증
+- USER / ADMIN 권한 구분
+- 관리자 API 접근 권한 제한
 
 ---
 
@@ -246,16 +259,16 @@ dearestshop
 ```
 
 ## ERD
-![DEARESTSHOP ERD](docs/dearest_Erd.png)
+<img src="./docs/dearest_Erd.png" width="900">
 
 ## API 
-![DEARESTSHOP API](docs/dearest_api.png)
+<img src="./docs/dearest_api.png" width="900">
 
 ## 프로젝트 시연 영상
 Spring Boot와 React를 이용하여 구현한 DEARESTSHOP의
 주요 기능을 확인할 수 있습니다.
 
-[![DEARESTSHOP 프로젝트 시연 영상](https://i.ytimg.com/vi/Evh3d3S6uvw/hqdefault.jpg)](https://youtu.be/Evh3d3S6uvw)
+[![DEARESTSHOP 프로젝트 시연 영상](https://youtu.be/Evh3d3S6uvw)
 
 
 ## 화면
@@ -266,27 +279,27 @@ Spring Boot와 React를 이용하여 구현한 DEARESTSHOP의
 
 ### 상품
 - 상품 목록
-  ![products](docs/images/products.png)
+ <img src="./docs/images/products.png" width="900">
 - 상품 상세
-  ![product_detail](docs/images/products_detail.png)
+<img src="./docs/images/products_detail.png" width="900">
 
 ### 구매
 - 장바구니
-  ![cart](docs/images/cart.png)
+<img src="./docs/images/cart.png" width="900">
 - 주문
-  ![order](docs/images/order.png)
+<img src="./docs/images/order.png" width="900">
 
 ### 마이페이지
 - 마이페이지
 - 주문 내역
-  ![orderlist](docs/images/orderlist.png)
+<img src="./docs/images/orderlist.png" width="900">
 - 배송지 관리
 - 위시리스트
 
 ### 관리자
 - 회원 관리
 - 상품 등록
-  ![product_add](docs/images/product_add.png)
+<img src="./docs/images/product_add.png" width="900">
 
 ## 트러블슈팅 
 
@@ -319,7 +332,7 @@ JWT 토큰 만료로 인해 인증되지 않은 요청으로 처리되었습니�
 ### 3. 테스트 데이터 생성 시 Category 중복 오류
 
 **문제**
-테스트 실행 시 Category의 unique constraint 오류가 발생했습닌다.
+테스트 실행 시 Category의 unique constraint 오류가 발생했습니다.
 
 **원인**
 테스트마다 동일한 `TOPS` 카테고리를 생성했습니다.
@@ -374,39 +387,54 @@ spring:
 이를 통해 상품별로 이미지를 각각 조회하는 대신
 여러 상품의 연관 데이터를 한 번에 조회하도록 개선했습니다.
 
-## 실행 방법 
+## 실행 방법
 
-dearest 프로젝트는 별도의 서버에 배포하지 않았으며,
-로컬 환경에서 실행할 수 있습니다.
+### 배포 환경
 
-### 1. H2 Database 실행
+실제 서비스는 다음 환경에 배포되어 있습니다.
 
-H2 Database를 실행합니다.
+- Frontend: Vercel
+- Backend: Render
 
-dearest 프로젝트는 H2 TCP Server를 사용하며,
-Spring Boot에서 다음과 같은 데이터베이스에 연결합니다.
-개발 및 테스트 목적으로 H2 Database와 JPA `ddl-auto: create` 설정을 사용합니다.
+### 로컬 환경
+
+#### 1. Backend
+
+H2 Database를 실행한 후 Spring Boot Backend를 실행합니다.
+
+개발 환경에서는 H2 TCP Server와 H2 Database를 사용합니다.
 
 ```text
 jdbc:h2:tcp://localhost/~/dearestshop
 ```
 
-H2서버가 실행 중인 상태에서 Backend를 실행합니다.
-
-### 2. H2 Backend 실행
-
 IntelliJ에서 Spring Boot 메인 클래스를 실행합니다.
 
-```text
+```test
 http://localhost:8080
 ```
 
 Spring Boot 실행 시 초기 데이터가 자동으로 생성됩니다.
-- 카테고리 : TOPS, SKIRTS, PANTS, DRESSES
-- 초기 상품 : 총 21개
-- 일반 회원 1명
-- 관리자 회원 1명
-- 관리자 기본 배송지 1개
+
+카테고리: TOPS, SKIRTS, PANTS, DRESSES
+초기 상품: 총 21개
+일반 회원 1명
+관리자 회원 1명
+관리자 기본 배송지 1개
+
+#### 2. Frontend
+
+React 프로젝트로 이동합니다.
+
+```test
+npm install
+npm run dev
+```
+
+로컬 개발 서버 :
+```test
+http://localhost:5173
+```
 
 ### 초기 테스트 계정
 
@@ -436,8 +464,37 @@ http://localhost:5173
 위시리스트, 배송지 관리, 주문 및 관리자 기능을
 직접 확인할 수 있습니다.
 
-## 배포
+## 🚀 배포
 
-현재 별도의 서버 배포는 진행하지 않았으며,
-로컬 개발 환경에서 Backend와 Frontend를 연동하여 구현 및 테스트했습니다.
+Frontend와 Backend를 각각 분리하여 배포했습니다.
+
+### Frontend
+
+React 애플리케이션은 Vercel을 이용하여 배포했습니다.
+
+- Vercel
+- URL: https://dearestshop-react.vercel.app
+
+### Backend
+
+Spring Boot 애플리케이션은 Render를 이용하여 배포했습니다.
+
+- Render
+- Spring Boot API 서버
+- Docker 기반 배포
+
+Frontend에서는 환경변수를 통해 Backend API 서버의 주소를 관리하도록 구성하여 로컬 개발 환경과 배포 환경에서 동일한 코드를 사용할 수 있도록 구성했습니다.
+
+```text
+Local
+React
+ ↓
+http://localhost:8080
+ ↓
+Spring Boot
+
+Production
+React (Vercel)
+ ↓
+Spring Boot API (Render)
 
