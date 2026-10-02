@@ -438,31 +438,13 @@ http://localhost:5173
 
 ### 초기 테스트 계정
 
-> 로컬 환경에서 기능 확인을 위한 테스트 계정입니다.
+> 배포된 서비스에서 기능을 확인할 수 있도록 테스트 계정을 제공합니다.
 
 | 구분 | 이메일 | 비밀번호 |
 |---|---|---|
 | 일반 회원 | `123@test.com` | `123` |
 | 관리자 | `admin@test.com` | `admin` |
 
-### 3. Frontend 실행
-
-React 프로젝트로 이동합니다.
-
-```text
-npm install
-npm run dev
-```
-
-```text
-http://localhost:5173
-```
-
-### 4. 웹사이트 접속
-
-로그인 후 상품 조회, 검색, 장바구니,
-위시리스트, 배송지 관리, 주문 및 관리자 기능을
-직접 확인할 수 있습니다.
 
 ## 🚀 배포
 
@@ -477,7 +459,7 @@ React 애플리케이션은 Vercel을 이용하여 배포했습니다.
 
 ### Backend
 
-Spring Boot 애플리케이션은 Render를 이용하여 배포했습니다.
+Spring Boot 서버는 Render를 이용하여 배포했으며, Docker를 기반으로 실행 환경을 구성했습니다.
 
 - Render
 - Spring Boot API 서버
