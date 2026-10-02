@@ -18,8 +18,10 @@ spring:
       max-request-size: 50MB
 jwt:
   secret: ${JWT_SECRET}
+frontend:
+  url: ${FRONTEND_URL:http://localhost:8080}
 file:
-  fileDir: "C:/Users/USER/Desktop/Study/images/"
+  fileDir: "${FILE_DIR:C:/Users/USER/Desktop/Study/images/}"
 logging.level:
   org.hibernate.SQL: debug
   org.hibernate.orm.jdbc.bind: trace

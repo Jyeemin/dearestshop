@@ -16,10 +16,13 @@ server:
   port:  ${PORT:8080}
 
 jwt:
-  secret: dearest-shop-jwt-secret-key-2026-very-long-string
+  secret: ${JWT_SECRET:dearest-shop-jwt-secret-key-2026-very-long-string}
+
+frontend:
+  url: http://localhost:5173
 
 file:
-  fileDir: "C:/Users/USER/Desktop/Study/images/"
+  fileDir: "${FILE_DIR:C:/Users/USER/Desktop/Study/images/}"
 
 logging:
   level:
