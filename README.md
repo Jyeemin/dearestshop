@@ -61,7 +61,7 @@ Frontend는 Vercel, Backend는 Render를 이용하여 실제 웹 환경에 배�
 - Bootstrap
 - React Icons
 
-- ### Deployment
+### Deployment
 
 - Vercel
 - Render
