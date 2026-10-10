@@ -446,7 +446,7 @@ http://localhost:5173
 | 관리자 | `admin@test.com` | `admin` |
 
 
-## 🚀 배포
+## 배포
 
 Frontend와 Backend를 각각 분리하여 배포했습니다.
 
